@@ -11,9 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger);
 
-///routes
 app.use("/api/products", products);
-///routes
 
 app.use(notFoundHandler);
 app.use(errorHandler);
