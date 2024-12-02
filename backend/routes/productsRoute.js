@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Router } from "express";
 import {
   getSingleProduct,
   getAllProducts,
@@ -7,7 +7,7 @@ import {
   deleteProduct,
 } from "../controllers/productsController.js";
 
-const router = express.Router();
+const router = Router();
 
 router.route("/").get(getAllProducts).post(postNewProduct);
 
