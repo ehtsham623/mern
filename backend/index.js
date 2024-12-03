@@ -3,6 +3,9 @@ import logger from "./middleware/logger.js";
 import errorHandler from "./middleware/error.js";
 import notFoundHandler from "./middleware/notFound.js";
 import products from "./routes/productsRoute.js";
+import connectDb from "./configs/db.js";
+
+connectDb();
 
 const app = express();
 
