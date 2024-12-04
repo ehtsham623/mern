@@ -1,5 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/usersModel.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 //@disc  get user by id
 //@route GET /api/users/:id
@@ -18,15 +20,25 @@ export const getUser = asyncHandler(async (req, res, next) => {
 //@disc  create new user
 //@route POST /api/users/signup
 export const signup = asyncHandler(async (req, res, next) => {
-  if (req.body.name) {
-    const newUser = await User.create({
-      name: req.body.name,
-      category: req.body.category,
-      price: req.body.price,
-    });
-    res.status(200).json(newUser);
+  const { name, email, password } = req.body;
+  if (name && email && password) {
+    const userExist = await User.findOne({ email });
+    if (userExist) {
+      const error = new Error("User already exists");
+      error.status = 400;
+      return next(error);
+    } else {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      const newUser = await User.create({
+        name: name,
+        email: email,
+        password: hashedPassword,
+      });
+      res.status(200).json(newUser);
+    }
   } else {
-    const error = new Error("Name,category,price is required");
+    const error = new Error("name, email, password is required");
     error.status = 404;
     return next(error);
   }
