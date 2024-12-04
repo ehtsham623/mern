@@ -21,5 +21,19 @@ const userScheme = mongoose.Schema(
   },
   { timestamps: true },
 );
+// default method to remove some values
+// method called by default when we get user object
+userScheme.methods.toJSON = function () {
+  const user = this.toObject();
+  delete user.password;
+  return user;
+};
+
+//custom method to remove some fields
+userScheme.methods.toJSONWithoutPass = function () {
+  const user = this.toObject();
+  delete user.password;
+  return user;
+};
 
 export default mongoose.model("User", userScheme);

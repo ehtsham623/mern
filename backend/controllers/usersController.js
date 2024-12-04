@@ -47,15 +47,18 @@ export const signup = asyncHandler(async (req, res, next) => {
 //@disc  login user
 //@route POST /api/users/login
 export const login = asyncHandler(async (req, res, next) => {
-  if (req.body.name) {
-    const newUser = await User.create({
-      name: req.body.name,
-      category: req.body.category,
-      price: req.body.price,
-    });
-    res.status(200).json(newUser);
+  const { email, password } = req.body;
+  if (email && password) {
+    const userExist = await User.findOne({ email });
+    if (userExist && (await bcrypt.compare(password, userExist.password))) {
+      res.status(200).json(userExist.toJSONWithoutPass());
+    } else {
+      const error = new Error("User does not exist");
+      error.status = 404;
+      return next(error);
+    }
   } else {
-    const error = new Error("Name,category,price is required");
+    const error = new Error("Email, password is required");
     error.status = 404;
     return next(error);
   }
