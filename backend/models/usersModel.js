@@ -21,6 +21,7 @@ const userScheme = mongoose.Schema(
   },
   { timestamps: true },
 );
+
 // default method to remove some values
 // method called by default when we get user object
 userScheme.methods.toJSON = function () {
