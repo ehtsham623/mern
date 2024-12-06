@@ -63,3 +63,7 @@ export const login = asyncHandler(async (req, res, next) => {
     return next(error);
   }
 });
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
+};
