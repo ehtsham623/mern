@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
 const userScheme = mongoose.Schema(
@@ -34,7 +35,11 @@ userScheme.methods.toJSON = function () {
 userScheme.methods.toJSONWithoutPass = function () {
   const user = this.toObject();
   delete user.password;
+  user.accessToken = generateToken(this._id);
   return user;
+};
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
 export default mongoose.model("User", userScheme);
