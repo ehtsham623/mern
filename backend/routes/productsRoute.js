@@ -6,15 +6,16 @@ import {
   updateProduct,
   deleteProduct,
 } from "../controllers/productsController.js";
+import protect from "../middleware/authMiddleware.js";
 
 const router = Router();
 
-router.route("/").get(getAllProducts).post(postNewProduct);
+router.route("/").get(protect, getAllProducts).post(protect, postNewProduct);
 
 router
   .route("/:id")
-  .get(getSingleProduct)
-  .put(updateProduct)
-  .delete(deleteProduct);
+  .get(protect, getSingleProduct)
+  .put(protect, updateProduct)
+  .delete(protect, deleteProduct);
 
 export default router;

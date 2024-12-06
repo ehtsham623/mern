@@ -20,18 +20,19 @@ export const getSingleProduct = asyncHandler(async (req, res, next) => {
 //@route GET /api/products/
 export const getAllProducts = asyncHandler(async (req, res, next) => {
   const limit = parseInt(req.query.limit);
-  const products = await Product.find().limit(limit);
+  const products = await Product.find({ userId: req.userId }).limit(limit);
   res.status(200).json(products);
 });
 
 //@disc  post new product
 //@route POST /api/products/
 export const postNewProduct = asyncHandler(async (req, res, next) => {
-  if (req.body.name) {
+  if (req.body.name && req.body.category && req.body.price) {
     const newProduct = await Product.create({
       name: req.body.name,
       category: req.body.category,
       price: req.body.price,
+      userId: req.userId,
     });
     res.status(200).json(newProduct);
   } else {
@@ -45,6 +46,18 @@ export const postNewProduct = asyncHandler(async (req, res, next) => {
 //@route PUT /api/products/
 export const updateProduct = asyncHandler(async (req, res, next) => {
   const productId = req.params.id;
+  const product = await Product.findById(productId);
+  if (!product) {
+    const error = new Error("Product not found");
+    error.status = 404;
+    return next(error);
+  }
+  if (product.userId != req.userId) {
+    const error = new Error("User not authorized");
+    error.status = 404;
+    return next(error);
+  }
+
   const updatedProduct = await Product.findOneAndUpdate(
     { _id: productId },
     req.body,
@@ -52,10 +65,6 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
   );
   if (updatedProduct) {
     res.status(200).json(updatedProduct);
-  } else {
-    const error = new Error("product not found");
-    error.status = 404;
-    return next(error);
   }
 });
 
@@ -63,10 +72,22 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
 //@route DELETE /api/products/
 export const deleteProduct = asyncHandler(async (req, res, next) => {
   const productId = req.params.id;
+  const product = await Product.findById(productId);
+  if (!product) {
+    const error = new Error("Product not found");
+    error.status = 404;
+    return next(error);
+  }
+  if (product.userId != req.userId) {
+    const error = new Error("User not authorized");
+    error.status = 404;
+    return next(error);
+  }
+
   const result = await Product.deleteOne({ _id: productId });
 
   if (result.deletedCount === 1) {
-    const products = await Product.find();
+    const products = await Product.find({ userId: req.userId });
     res.status(200).json({ success: true, message: productId, data: products });
   } else {
     const error = new Error("product not found");
