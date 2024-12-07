@@ -1,5 +1,5 @@
 {
-  "name": "mearn",
+  "name": "e-shop",
   "version": "1.0.0",
   "description": "mearn project for integrating mongo and auth",
   "main": "index.js",
