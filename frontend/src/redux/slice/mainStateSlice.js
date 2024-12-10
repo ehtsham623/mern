@@ -21,7 +21,7 @@ const initialState = {
 
 export const login = createAsyncThunk(
   "mainState/login",
-  async (data, { rejectWithValue }) => {
+  async ({ isRememberMe, data }, { rejectWithValue }) => {
     const response = await loginEndpoint(data);
     return response.error ? rejectWithValue(response) : response;
   },
@@ -67,6 +67,7 @@ const mainStateSlice = createSlice({
       })
       .addCase(signup.fulfilled, (state, action) => {
         const { payload } = action;
+        toast.success(payload.message, { toastId: "signup" });
 
         state.signUpLoading = false;
         state.message = payload.message;

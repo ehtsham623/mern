@@ -9,8 +9,8 @@ const CircularLoader = ({ height = "25", width = "25" }) => {
         height={height}
         width={width}
         strokeWidth="6"
-        color="#2563eb"
-        secondaryColor="#374151"
+        color="#88B04B"
+        secondaryColor="#88B04B"
         ariaLabel="oval-loading"
         wrapperStyle={{}}
         wrapperclassName=""

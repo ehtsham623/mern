@@ -3,29 +3,35 @@ export const content = ["./src/**/*.{js,ts,jsx,tsx}", "./public/index.html"];
 export const theme = {
   extend: {
     colors: {
-      //primary colors
-      mainColor: "#3b82f6",
-      //text colors
-      textPrimaryColor: "#4f525c",
-      textPrimaryLightColor: "#FFFFFF",
-      textPrimaryDarkColor: "#000000",
-      textMainColor: "#3b82f6",
-      hintTextColor: "#C2C2D8",
-      //Bg color
-      bgColor: "#f9fbfc",
-      bgLightColor: "#FFFFFF",
-      mainLightBgColor: "#3b82f6",
-      mainDarkBgColor: "#1d4ed8",
-      //other
-      dividerColor: "#E9EDF7",
-      shadowColor: "#E9E9F2",
-      borderColor: "#E9E9F2",
-      focusBorderColor: "#3b82f6",
-      ratingColor: "#FFB907",
-      //secondary colors
-      successColor: "#00C300",
-      errorColor: "#EB0076",
-      warningColor: "#FFB907",
+      // Primary Colors
+      mainColor: "#88B04B", // Light Royal Green
+      mainLightColor: "#A9C97E", // Soft Green
+      mainDarkColor: "#6C8C37", // Deep Forest Green
+
+      // Text Colors
+      textPrimaryColor: "#2E2F27", // Deep Charcoal Olive
+      textPrimaryLightColor: "#F4F7E7", // Soft Ivory Green
+      textPrimaryDarkColor: "#1C1D17", // Ebony
+      textMainColor: "#88B04B", // Light Royal Green
+      hintTextColor: "#C7D4A0", // Muted Sage Green
+
+      // Background Colors
+      bgColor: "#F9FBEF", // Very Light Green Mist
+      bgLightColor: "#FFFFFF", // White
+      mainLightBgColor: "#E9F2D7", // Pale Green
+      mainDarkBgColor: "#6C8C37", // Deep Forest Green
+
+      // Other Colors
+      dividerColor: "#D8E2C3", // Pale Green Divider
+      shadowColor: "#C0D0B0", // Subtle Green Shadow
+      borderColor: "#B4C49A", // Neutral Green Border
+      focusBorderColor: "#88B04B", // Light Royal Green Focus
+      ratingColor: "#FFD700", // Gold (for accents)
+
+      // Secondary Colors
+      successColor: "#62A850", // Vibrant Green
+      errorColor: "#D72638", // Crimson Red
+      warningColor: "#FFC107", // Amber Yellow
     },
   },
 };
