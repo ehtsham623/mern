@@ -30,8 +30,8 @@ export const signup = asyncHandler(async (req, res, next) => {
         password: await hashPassword(password),
       });
       const userObject = newUser.toObject();
-      userObject.accessToken = generateToken(newUser._id);
-      res.status(200).json(userObject);
+      // userObject.accessToken = generateToken(newUser._id);
+      res.status(200).json({ data: userObject, message: "user created" });
     }
   } else {
     const error = new Error("name, email, password is required");
