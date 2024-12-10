@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const PrivateRoutes = () => {
   const mainStateSelector = useSelector((state) => state.mainState);
 
-  return mainStateSelector.userId !== "" ? (
+  return mainStateSelector.loginData._id ? (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Outlet />
     </ErrorBoundary>

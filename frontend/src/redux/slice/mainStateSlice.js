@@ -21,7 +21,7 @@ const initialState = {
 
 export const login = createAsyncThunk(
   "mainState/login",
-  async ({ isRememberMe, data }, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     const response = await loginEndpoint(data);
     return response.error ? rejectWithValue(response) : response;
   },
@@ -45,11 +45,11 @@ const mainStateSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         const { payload } = action;
+        toast.success(payload.message, { toastId: "login" });
 
         state.loginLoading = false;
         state.message = payload.message;
         state.statusCode = payload.statusCode;
-
         state.loginData = payload.data;
       })
       .addCase(login.rejected, (state, action) => {

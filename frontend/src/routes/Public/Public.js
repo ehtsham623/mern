@@ -9,7 +9,7 @@ import { URL } from "../urlEndpoints";
 const PublicRoutes = () => {
   const mainStateSelector = useSelector((state) => state.mainState);
 
-  return mainStateSelector.userId !== "" ? (
+  return mainStateSelector.loginData._id ? (
     <Navigate to={URL.HOME} />
   ) : (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
