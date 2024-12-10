@@ -5,12 +5,15 @@ import notFoundHandler from "./middleware/notFound.js";
 import products from "./routes/productsRoute.js";
 import users from "./routes/usersRoute.js";
 import connectDb from "./configs/db.js";
+import cors from "cors";
 
 connectDb();
 
 const app = express();
 
 const port = process.env.PORT || 8000;
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger);
