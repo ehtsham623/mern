@@ -31,7 +31,9 @@ export const signup = asyncHandler(async (req, res, next) => {
       });
       const userObject = newUser.toObject();
       // userObject.accessToken = generateToken(newUser._id);
-      res.status(200).json({ data: userObject, message: "user created" });
+      res
+        .status(200)
+        .json({ data: userObject, message: "User created successfully" });
     }
   } else {
     const error = new Error("name, email, password is required");
@@ -47,7 +49,10 @@ export const login = asyncHandler(async (req, res, next) => {
   if (email && password) {
     const userExist = await User.findOne({ email });
     if (userExist && compareHashedPassword(password, userExist.password)) {
-      res.status(200).json(userExist.toJSONWithoutPass()); //using custom to json method
+      res.status(200).json({
+        data: userExist.toJSONWithoutPass(),
+        message: "User login successfully",
+      }); //using custom to json method
     } else {
       const error = new Error("User does not exist");
       error.status = 404;
