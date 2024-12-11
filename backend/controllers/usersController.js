@@ -8,9 +8,12 @@ import {
 
 //@disc  get user by id
 //@route GET /api/users/:id
-export const getUser = asyncHandler(async (req, res, next) => {
+export const getLoggedInUser = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ _id: req.userId });
-  res.status(200).json(user);
+  res.status(200).json({
+    data: user,
+    message: "User login successfully",
+  });
 });
 
 //@disc  create new user
