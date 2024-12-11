@@ -9,7 +9,7 @@ export const signUpEndpoint = async (data) => {
   return await callPost(REQ.SIGNUP, data, undefined);
 };
 
-export const getUserEndpoint = async () => {
+export const getLoggedInUserEndpoint = async () => {
   return await callGet(REQ.GET_USER, undefined);
 };
 export const getProductsEndpoint = async () => {

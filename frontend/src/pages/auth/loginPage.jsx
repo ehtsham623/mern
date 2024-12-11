@@ -25,8 +25,11 @@ const LoginPage = () => {
     event.preventDefault();
     dispatch(
       login({
-        email: userData.email,
-        password: userData.password,
+        isRememberMe,
+        data: {
+          email: userData.email,
+          password: userData.password,
+        },
       }),
     ).then((data) => {
       setUserData({
@@ -34,9 +37,7 @@ const LoginPage = () => {
         password: "",
       });
       if (data.payload.statusCode === 200) {
-        if (isRememberMe) {
-          console.log("remember me is true");
-        }
+        navigate(URL.HOME);
       }
     });
   };

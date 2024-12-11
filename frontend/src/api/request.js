@@ -1,4 +1,5 @@
 import axios from "axios";
+import { handleLogout } from "../redux/slice/mainStateSlice";
 
 export const callEndpoint = async (url, method, data, token, header) => {
   try {
@@ -8,6 +9,12 @@ export const callEndpoint = async (url, method, data, token, header) => {
 
     if (token) {
       headers.Authorization = `Bearer ${token}`;
+    } else {
+      const accessToken =
+        localStorage.getItem("accessToken") ||
+        sessionStorage.getItem("accessToken");
+
+      if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
     }
 
     if (header) {
@@ -22,12 +29,16 @@ export const callEndpoint = async (url, method, data, token, header) => {
       data: data,
       headers: headers,
     });
+
     return {
       data: res.data.data,
       message: res.data.message,
       statusCode: res.status,
     };
   } catch (error) {
+    if (error.response.status === 401) {
+      handleLogout();
+    }
     return {
       error: true,
       message: error.response.data.message,
