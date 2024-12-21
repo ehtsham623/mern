@@ -13,7 +13,7 @@ const HomePage = () => {
           dispatch(logout());
         }}
       >
-        logout button
+        logout
       </button>
     </div>
   );
